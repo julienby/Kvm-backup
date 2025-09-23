@@ -1,0 +1,12 @@
+/.env
+/VM-PIL09-LAMP1.qcow2.2025-09-23_14-00-04
+/backup-VM-PIL09-LAMP1 QCOW2-2025-09-23_14-00-04.log
+/backup_vm.py
+/backup_vm.py.old
+/backup_vm2.py
+/daily-vmbackup.sh
+/log-backup-vm.txt
+/monthly-vmbackup.sh
+/volumes.py
+/volumes.py.old
+/weekly-vmbackup.sh
