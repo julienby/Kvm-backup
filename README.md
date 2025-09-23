@@ -15,7 +15,7 @@ Automatisez la sauvegarde de vos VMs KVM/libvirt en quelques minutes. Deux appro
 
 ---
 
-## Prérequis 
+## Prérequis
 - Hôte KVM avec libvirt: `qemu-kvm`, `libvirt-daemon`, `virsh`.
 - Accès à `virsh`/images (souvent `root`).
 - Pour Python: `python3`, `python3-requests`, `python3-libvirt`.
