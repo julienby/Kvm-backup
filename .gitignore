@@ -10,3 +10,5 @@
 /volumes.py
 /volumes.py.old
 /weekly-vmbackup.sh
+/*.log.*
+/*.qcow2.*
