@@ -106,17 +106,27 @@ replace_disk_path_in_xml() {
   # Remplacer le premier <disk device='disk'> source file="..." par new_path
   # On agit prudemment: remplace seulement l'attribut file correspondant à old_path
   awk -v old="${old_path}" -v rep="${new_path}" '
-    BEGIN{replaced=0}
+    BEGIN { replaced = 0 }
     {
-      line=$0
-      if (replaced==0) {
-        # chercher attribut file='...' ou file="..."
+      line = $0
+      if (replaced == 0) {
         if (line ~ /<source[[:space:]]+file=/) {
-          # effectuer remplacement seulement si old_path présent
-          if (line ~ old) {
-            gsub(/file=\"[^\"]*\"/, "file=\"" rep "\"", line)
-            gsub(/file=\'[^\']*\'/, "file=\'" rep "\'", line)
-            replaced=1
+          pos = index(line, "file=")
+          if (pos > 0) {
+            qchar = substr(line, pos + 5, 1)
+            if (qchar == "\"" || qchar == sprintf("%c", 39)) {
+              start = pos + 6
+              rest = substr(line, start)
+              endrel = index(rest, qchar)
+              if (endrel > 0) {
+                path = substr(rest, 1, endrel - 1)
+                if (path == old) {
+                  # reconstruire la ligne avec rep, en conservant le quote d origine
+                  line = substr(line, 1, start - 1) rep substr(line, start + endrel - 1)
+                  replaced = 1
+                }
+              }
+            }
           }
         }
       }

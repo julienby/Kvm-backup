@@ -1,0 +1,10 @@
+[lun. 29 sept. 2025 16:56:28 CEST] Cible: domaine=VM-PIL09-LAMP1, title=VM-PIL09-LAMP1 QCOW2 DAILY, disque=/var/lib/libvirt/images-locales/VM-PIL09-LAMP1.qcow2
+[lun. 29 sept. 2025 16:56:28 CEST] Mode --fake: aucune action réalisée pour VM-PIL09-LAMP1
+[lun. 29 sept. 2025 16:56:28 CEST] Cible: domaine=VM-LITIS9-LOUISE, title=VM-LITIS9-LOUISE DAILY QCOW2, disque=/var/lib/libvirt/images-locales/VM-LITIS9-LOUISE.qcow2
+[lun. 29 sept. 2025 16:56:28 CEST] Mode --fake: aucune action réalisée pour VM-LITIS9-LOUISE
+[lun. 29 sept. 2025 16:56:28 CEST] Cible: domaine=VM-LITIS15-DBT, title=VM-LITIS15-DBT, disque=/mnt/vm-nas-r1/images/VM-LITIS15-DBT.img
+[lun. 29 sept. 2025 16:56:28 CEST] Mode --fake: aucune action réalisée pour VM-LITIS15-DBT
+[lun. 29 sept. 2025 16:56:28 CEST] Cible: domaine=VM-LITIS4-UBIKEY, title=VM-LITIS4-UBIKEY, disque=/var/lib/libvirt/images/VM-LITIS4-UBIKEY.img
+[lun. 29 sept. 2025 16:56:28 CEST] Mode --fake: aucune action réalisée pour VM-LITIS4-UBIKEY
+[lun. 29 sept. 2025 16:56:28 CEST] Cible: domaine=VM-PIL09-LMAP1, title=VM-PIL09-LMAP1 (OLD), disque=/home/litistech/VM-LAMP1.img
+[lun. 29 sept. 2025 16:56:28 CEST] Mode --fake: aucune action réalisée pour VM-PIL09-LMAP1
