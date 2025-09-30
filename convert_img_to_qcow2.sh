@@ -43,7 +43,7 @@ mkdir -p "$DEST_DIR" || {
 TIMESTAMP=$(date +%F_%H-%M-%S)
 LOGFILE="$DEST_DIR/convert-qcow2-$TIMESTAMP.log"
 
-# Construire un motif: si aucun joker dans l'entrée, faire une recherche partielle
+# Construire un motif: si aucun joker dans l'entrée, faire une correspondance exacte
 HAS_WILDCARD=false
 if echo "$VM_TITLE" | grep -q '[\*\?\[]'; then
   HAS_WILDCARD=true
@@ -51,7 +51,7 @@ fi
 if $HAS_WILDCARD; then
   MATCH_PATTERN="$VM_TITLE"
 else
-  MATCH_PATTERN="*$VM_TITLE*"
+  MATCH_PATTERN="$VM_TITLE"
 fi
 
 # Résoudre tous les domaines dont le Title matche le motif
@@ -61,7 +61,13 @@ mapfile -t MATCHING_DOMAINS < <(virsh list --all --name | while read -r dom; do
   if [ -z "$title" ]; then
     title=$(virsh dumpxml "$dom" 2>/dev/null | awk -F'[<>]' '/<title>/{print $3; exit}')
   fi
-  if [ -n "$title" ] && [[ "$title" == $MATCH_PATTERN ]]; then
+  if [ -n "$title" ] && {
+    if $HAS_WILDCARD; then
+      [[ "$title" == $MATCH_PATTERN ]]
+    else
+      [ "$title" = "$MATCH_PATTERN" ]
+    fi
+  }; then
     echo "$dom|$title"
   fi
 done)
