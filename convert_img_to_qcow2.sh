@@ -138,7 +138,46 @@ replace_disk_path_in_xml() {
       }
       print line
     }
-  ' "$xml_in" > "$xml_out"
+  ' "$xml_in" > "$xml_out.tmp1"
+
+  # Deuxième passage: si le bloc <disk> contient la nouvelle source, forcer driver type="qcow2"
+  awk -v target="${new_path}" '
+    function flush_block() {
+      if (inDisk) {
+        if (hasTarget) {
+          for (i = 1; i <= blkLen; i++) {
+            if (block[i] ~ /<driver[[:space:]][^>]*type=\"[^\"]*\"/) {
+              gsub(/type=\"[^\"]*\"/, "type=\"qcow2\"", block[i])
+            }
+          }
+        }
+        for (i = 1; i <= blkLen; i++) print block[i]
+        inDisk = 0; blkLen = 0; hasTarget = 0
+      }
+    }
+    BEGIN { inDisk = 0; blkLen = 0; hasTarget = 0 }
+    {
+      line = $0
+      if (!inDisk) {
+        if (line ~ /<disk\b/) {
+          inDisk = 1; blkLen = 0; hasTarget = 0
+          block[++blkLen] = line
+        } else {
+          print line
+        }
+      } else {
+        block[++blkLen] = line
+        if (line ~ /<source[[:space:]]+file=/ && line ~ target) {
+          hasTarget = 1
+        }
+        if (line ~ /<\/disk>/) {
+          flush_block()
+        }
+      }
+    }
+    END { if (inDisk) flush_block() }
+  ' "$xml_out.tmp1" > "$xml_out"
+  rm -f "$xml_out.tmp1"
   return 0
 }
 
