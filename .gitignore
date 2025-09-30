@@ -12,3 +12,4 @@
 /weekly-vmbackup.sh
 /*.log.*
 /*.qcow2.*
+/*.log
