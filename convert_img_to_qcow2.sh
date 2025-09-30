@@ -146,8 +146,8 @@ replace_disk_path_in_xml() {
       if (inDisk) {
         if (hasTarget) {
           for (i = 1; i <= blkLen; i++) {
-            if (block[i] ~ /<driver[[:space:]][^>]*type=\"[^\"]*\"/) {
-              gsub(/type=\"[^\"]*\"/, "type=\"qcow2\"", block[i])
+            if (block[i] ~ /<driver[[:space:]][^>]*type="[^"]*"/) {
+              gsub(/type="[^"]*"/, "type=\"qcow2\"", block[i])
             }
           }
         }
